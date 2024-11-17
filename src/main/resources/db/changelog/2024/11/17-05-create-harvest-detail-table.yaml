@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731875771-create-harvest-detail-table
+      author: MBAREK0
+      changes:
+        - createTable:
+            tableName: harvest_detail
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+                    autoIncrement: true
+              - column:
+                  name: harvest_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tree_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: harvest_detail
+            baseColumnNames: harvest_id
+            referencedTableName: harvest
+            referencedColumnNames: id
+            constraintName: fk_harvest_detail_harvest_id
+        - addForeignKeyConstraint:
+            baseTableName: harvest_detail
+            baseColumnNames: tree_id
+            referencedTableName: tree
+            referencedColumnNames: id
+            constraintName: fk_harvest_detail_tree_id
+        - createIndex:
+            indexName: idx_harvest_detail_deleted_at
+            tableName: harvest_detail
+            columns:
+              - column:
+                  name: deleted_at

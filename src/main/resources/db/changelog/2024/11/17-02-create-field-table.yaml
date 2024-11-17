@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731875771-create-field-table
+      author: MBAREK0
+      changes:
+        - createTable:
+            tableName: field
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+                    autoIncrement: true
+              - column:
+                  name: farm_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: area
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: field
+            baseColumnNames: farm_id
+            referencedTableName: farm
+            referencedColumnNames: id
+            constraintName: fk_field_farm_id
+
+  - changeSet:
+      id: create-index-on-field-deleted-at
+      author: MBAREK0
+      changes:
+        - createIndex:
+            indexName: idx_field_deleted_at
+            tableName: field
+            columns:
+              - column:
+                  name: deleted_at

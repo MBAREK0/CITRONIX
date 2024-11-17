@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731875771-create-farm-table
+      author: MBAREK0
+      changes:
+        - createTable:
+            tableName: farm
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+                    autoIncrement: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: area
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+
+
+  - changeSet:
+      id: create-index-on-farm-deleted-at
+      author: MBAREK0
+      changes:
+        - createIndex:
+            indexName: idx_farm_deleted_at
+            tableName: farm
+            columns:
+              - column:
+                  name: deleted_at
