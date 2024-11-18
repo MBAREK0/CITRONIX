@@ -8,15 +8,13 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: uuid
                   constraints:
                     primaryKey: true
                     nullable: false
-                    unique: true
-                    autoIncrement: true
               - column:
                   name: farm_id
-                  type: BIGINT
+                  type: uuid
                   constraints:
                     nullable: false
               - column:

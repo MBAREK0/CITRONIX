@@ -8,12 +8,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: uuid
                   constraints:
                     primaryKey: true
                     nullable: false
-                    unique: true
-                    autoIncrement: true
               - column:
                   name: name
                   type: VARCHAR(255)
