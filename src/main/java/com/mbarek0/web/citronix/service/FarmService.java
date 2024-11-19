@@ -16,6 +16,7 @@ import java.util.UUID;
 public class FarmService {
 
     private final FarmRepository farmRepository;
+    private final FieldService fieldService;
 
     public Page<Farm> getAllFarms(int page,int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -24,13 +25,6 @@ public class FarmService {
     }
 
 
-    /**
-     * Search farms with multiple criteria and pagination.
-     * @param name
-     * @param location
-     * @param pageable
-     * @return
-     */
     public Page<Farm> searchFarms(String name, String location, Pageable pageable) {
         return farmRepository.findByNameContainingAndLocationContaining(name, location, pageable);
     }
@@ -39,8 +33,30 @@ public class FarmService {
         return farmRepository.findByIdAndDeletedAtIsNull(id);
     }
 
+    public Farm getFarmByFieldId(UUID fieldId) {
+        Optional<Farm> opFarm =  farmRepository.findByFieldsIdAndDeletedAtIsNull(fieldId);
+        return opFarm.orElseThrow(() -> new RuntimeException("Farm not found"));
+    }
+
+    public Page<Farm> getAllFarmsThatTotalFieldsAreaSmallerThan4000(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return farmRepository.findAllThatTotalFieldsAreaSmallerThan4000(pageable);
+    }
+
     public Farm createFarm(Farm farm) {
-        return farmRepository.save(farm);
+        Farm farm1  =  farmRepository.save(farm);
+
+        if (farm1.getFields().size() > 10) {
+            throw new RuntimeException("Farm cannot have more than 10 fields");
+        }
+
+        if (!farm1.getFields().isEmpty())
+            fieldService.createFields(farm1.getFields());
+
+        if (farm1.getFields().stream().map(f -> f.getArea()).reduce(0.0, Double::sum) > farm.getArea()) {
+            throw new RuntimeException("Farm cannot have fields with total area greater than farm area");
+        }
+        return farm1;
     }
 
     public Optional<Farm> softDeleteFarm(UUID id) {

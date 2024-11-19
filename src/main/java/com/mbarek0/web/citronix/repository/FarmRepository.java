@@ -16,5 +16,11 @@ public interface FarmRepository extends JpaRepository<Farm, UUID> {
     @Query("SELECT f FROM Farm f WHERE f.deletedAt IS NULL")
     Page<Farm> findAllAndDeletedAtIsNull(Pageable pageable);
     Page<Farm> findByNameContainingAndLocationContaining(String name, String location, Pageable pageable);
+    Optional<Farm> findByFieldsIdAndDeletedAtIsNull(UUID fieldId);
+
+    @Query("SELECT f FROM Farm f WHERE f.deletedAt IS NULL AND (SELECT SUM(field.area) FROM f.fields field) < 4000")
+    Page<Farm> findAllThatTotalFieldsAreaSmallerThan4000(Pageable pageable);
+
+
 
 }

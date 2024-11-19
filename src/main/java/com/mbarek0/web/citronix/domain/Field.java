@@ -1,5 +1,6 @@
 package com.mbarek0.web.citronix.domain;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -15,25 +15,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "farm")
-public class Farm {
-
+public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-
-    private String name;
-
-    private String location;
-
     private Double area;
 
-    @OneToMany(mappedBy = "farm")
-    private Set<Field> fields;
-
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+    @ManyToOne
+    private Farm farm;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
