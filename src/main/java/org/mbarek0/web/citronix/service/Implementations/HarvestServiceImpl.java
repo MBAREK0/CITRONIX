@@ -95,7 +95,7 @@ public class HarvestServiceImpl implements HarvestService {
             throw new InvalidCredentialsException("tree Id is required");
         }
         List<HarvestDetail> harvestDetails = harvestDetailRepository.findAllByTreeId(treeId);
-        harvestDetailRepository.deleteAll(harvestDetails);
+        harvestDetails.forEach(harvestDetailRepository::delete);
     }
 
 

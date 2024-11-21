@@ -1,6 +1,9 @@
 package org.mbarek0.web.citronix.service.Implementations;
 
 import lombok.AllArgsConstructor;
+import org.mbarek0.web.citronix.event.FieldDeleteEvent;
+import org.mbarek0.web.citronix.event.TreeDeletedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,8 @@ public class TreeServiceImpl implements TreeService {
 
     private final TreeRepository treeRepository;
     private final FieldService fieldService;
+    private final ApplicationEventPublisher eventPublisher;
+
 
     @Override
     public Tree saveTree(Tree tree) {
@@ -82,7 +87,13 @@ public class TreeServiceImpl implements TreeService {
 
     @Override
     public void delete(UUID id) {
+        if (id == null){
+            throw new InvalidCredentialsException("id is required");
+        }
         Tree treeToDelete = findById(id);
+
+        eventPublisher.publishEvent(new TreeDeletedEvent(treeToDelete.getId()));
+
         treeRepository.delete(treeToDelete);
     }
 
