@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731887279553-3
+      author: MBAREK0
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_harvest
+                  name: id
+                  type: UUID
+              - column:
+                  name: season
+                  type: VARCHAR(255)
+              - column:
+                  name: date
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: total_quantity
+                  type: DOUBLE
+            tableName: harvest
+
+

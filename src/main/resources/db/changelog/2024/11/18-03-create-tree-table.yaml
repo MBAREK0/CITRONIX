@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731887075015-6
+      author: MBAREK0
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_tree
+                  name: id
+                  type: UUID
+              - column:
+                  name: planting_date
+                  type: DATE
+              - column:
+                  name: field_id
+                  type: UUID
+            tableName: tree
+        - addForeignKeyConstraint:
+            baseColumnNames: field_id
+            baseTableName: tree
+            constraintName: FK_TREE_ON_FIELD
+            referencedColumnNames: id
+            referencedTableName: field
+            onDelete: SET NULL
+            onUpdate: CASCADE
+

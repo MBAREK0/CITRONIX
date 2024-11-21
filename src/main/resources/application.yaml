@@ -1,32 +1,9 @@
 spring:
-  application:
-    name: Hunts
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/citronix
-    username: user
-    password: password
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: public
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/master.yaml
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   docker:
     compose:
-      file: src/main/docker/compose.yaml
-      enabled: false
       lifecycle-management: start_only
-
-  output:
-    ansi:
-      enabled: always
+      file: src/main/docker/compose.yaml
+      enabled: true
+  liquibase:
+    enabled: true
+    change-log: db/changelog/master.yaml

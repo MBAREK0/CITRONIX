@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731887552478-5
+      author: MBAREK0
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_sale
+                  name: id
+                  type: UUID
+              - column:
+                  name: date
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: unit_price
+                  type: DOUBLE
+              - column:
+                  name: client
+                  type: VARCHAR(255)
+              - column:
+                  name: harvest_id
+                  type: UUID
+            tableName: sale
+        - addForeignKeyConstraint:
+            baseColumnNames: harvest_id
+            baseTableName: sale
+            constraintName: FK_SALE_ON_HARVEST
+            referencedColumnNames: id
+            referencedTableName: harvest
+            onDelete: SET NULL
+            onUpdate: CASCADE
+
