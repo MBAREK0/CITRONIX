@@ -104,6 +104,9 @@ CITRONIX/
 └── pom.xml                     # Maven build file
 
 ```
+<p align="center">
+  <img src="https://drive.google.com/uc?export=view&id=1pkkPT0tgTqgYwldn991Tss0YS5XAzy5y" alt="Description of the image">
+</p>
 ### Prerequisites
 
 - Java 17+
