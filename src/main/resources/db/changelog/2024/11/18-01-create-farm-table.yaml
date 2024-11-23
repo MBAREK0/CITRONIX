@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731886487291-1
+      author: MBAREK0
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_farm
+                  name: id
+                  type: UUID
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: location
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: area
+                  type: DOUBLE
+              - column:
+                  name: creation_date
+                  type: DATE
+            tableName: farm
+        - addUniqueConstraint:
+            columnNames: name
+            tableName: farm
+            constraintName: uq_farm_name

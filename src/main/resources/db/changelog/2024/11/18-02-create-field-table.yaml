@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731886809382-2
+      author: MBAREK0
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_field
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: area
+                  type: DOUBLE
+              - column:
+                  name: farm_id
+                  type: UUID
+            tableName: field
+        - addForeignKeyConstraint:
+            baseColumnNames: farm_id
+            baseTableName: field
+            constraintName: FK_FIELD_ON_FARM
+            referencedColumnNames: id
+            referencedTableName: farm
+            onDelete: SET NULL
+            onUpdate: CASCADE
+
