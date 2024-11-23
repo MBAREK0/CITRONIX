@@ -59,8 +59,51 @@
 - **Lombok** (for simplifying entity code)
 - **MapStruct** (for data transformations)
 
-## Setup and Installation
+## project structure
+```sh
+CITRONIX/
+├── .idea/                    # IDE project files
+├── .mvn/                      # Maven wrapper
+├── src/                       
+│   └── main/                  
+│       └── java/              
+│           └── org/           
+│               └── mbarek0/  
+│                   └── web/   
+│                       └── citronix/
+│                           ├── domain/
+│                           │   ├── entities/          # JPA entities
+│                           │   └── enums/              # Enum classes
+│                           ├── DTO/                   # Data Transfer Objects
+│                           ├── event/                 # Event-driven logic
+│                           ├── exception/             # Custom exceptions
+│                           ├── listener/              # Event listeners
+│                           ├── repository/            # Repository interfaces
+│                           ├── service/               # Business logic services
+│                           ├── util/                  # Utility classes
+│                           └── web/
+│                               ├── errors/            # Error handling logic
+│                               ├── rest/              # REST controllers (API endpoints)
+│                               │   ├── FarmController/
+│                               │   ├── FieldController/
+│                               │   ├── HarvestController/
+│                               │   ├── SaleController/
+│                               │   └── TreeController/
+│                               └── VM/                 # View Models or Value Models
+│                                   ├── Farm/
+│                                   ├── Field/
+│                                   ├── Harvest/
+│                                   ├── Sale/
+│                                   └── Tree/
+│                                   └── mapper/           # Mapper classes for DTO/entity conversion
+│                           └── CitronixApplication.java  # Main entry point for the Spring Boot application
+│       └── resources/
+│           ├── db.changelog/    # Database migration files (Liquibase/Flyway)
+│           ├── application.yaml # Main application configuration
+│           └── uml/             # UML diagrams or design documentation
+└── pom.xml                     # Maven build file
 
+```
 ### Prerequisites
 
 - Java 17+
