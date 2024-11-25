@@ -1,5 +1,6 @@
 package org.mbarek0.web.citronix.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.mbarek0.web.citronix.domain.enums.Season;
@@ -24,6 +25,7 @@ public class Harvest {
     private LocalDate date;
     private double totalQuantity;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "harvest")
     private List<HarvestDetail> harvestDetails;
 
