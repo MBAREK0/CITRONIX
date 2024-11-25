@@ -1,5 +1,6 @@
 package org.mbarek0.web.citronix.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class Tree {
     @ManyToOne
     private Field field;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tree")
     private List<HarvestDetail> harvestDetails;
 

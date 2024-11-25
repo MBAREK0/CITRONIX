@@ -1,5 +1,6 @@
 package org.mbarek0.web.citronix.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Farm {
     private double area;
     private LocalDate creationDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "farm")
     private List<Field> fields;
 }
